@@ -37,7 +37,14 @@ namespace WebApi.Controllers
             var bookList = BookList.OrderBy(i => i.Id).ToList<Book>();
             return bookList;
         }
-       
 
+        [HttpGet("id")]
+        public Book GetById(int Id)
+        {
+            var book = BookList.FirstOrDefault(i => i.Id == Id);
+            return book;
+        }
+
+     
     }
 }
