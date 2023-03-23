@@ -38,7 +38,7 @@ namespace WebApi.Controllers
             return bookList;
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public Book GetById(int Id)
         {
             var book = BookList.FirstOrDefault(i => i.Id == Id);
@@ -57,6 +57,19 @@ namespace WebApi.Controllers
             return Ok();
         }
 
-        
+        [HttpPut("{id}")]
+        public IActionResult UpdateBook(int id,Book updatedBook)
+        {
+            var book = BookList.FirstOrDefault(i => i.Id == updatedBook.Id);
+
+            if (book is not null)
+                return BadRequest();
+
+            book.Title = updatedBook.Title != default ? updatedBook.Title : book.Title;
+            book.GenreId = updatedBook.GenreId != default ? updatedBook.GenreId : book.GenreId;
+            book.PublishDate = updatedBook.PublishDate != default ? updatedBook.PublishDate : book.PublishDate;
+            book.PageCount = updatedBook.PageCount != default ? updatedBook.PageCount : book.PageCount;
+            return Ok();
+        }
     }
 }
