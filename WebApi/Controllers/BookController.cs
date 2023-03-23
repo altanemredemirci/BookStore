@@ -71,5 +71,17 @@ namespace WebApi.Controllers
             book.PageCount = updatedBook.PageCount != default ? updatedBook.PageCount : book.PageCount;
             return Ok();
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteBook(int id)
+        {
+            var book = BookList.FirstOrDefault(i => i.Id == id);
+
+            if (book is not null)
+                return BadRequest();
+
+            BookList.Remove(book);
+            return Ok();
+        }
     }
 }
