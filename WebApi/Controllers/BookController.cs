@@ -45,6 +45,18 @@ namespace WebApi.Controllers
             return book;
         }
 
-     
+        [HttpPost]
+        public IActionResult AddBook(Book newBook)
+        {
+            var book = BookList.FirstOrDefault(i => i.Title == newBook.Title);
+
+            if (book is not null)
+                return BadRequest();
+
+            BookList.Add(book);
+            return Ok();
+        }
+
+        
     }
 }
